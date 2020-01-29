@@ -1,0 +1,15 @@
+version: "3.6"
+
+services: 
+    flow:
+        image: node:12.14.1-alpine3.9
+        ports: 
+            - "8000:80"
+        volumes:
+            - ./flow:/flow
+        working_dir: /flow
+        command: [ node, release.js ]
+    mqtt:
+        image: eclipse-mosquitto
+        ports: 
+            - 1883:1883

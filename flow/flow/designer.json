@@ -1,0 +1,552 @@
+{
+	"tabs": [
+		{
+			"id": "1579965780070",
+			"name": "Main",
+			"icon": "fa-object-ungroup",
+			"linker": "main",
+			"index": 0
+		}
+	],
+	"components": [
+		{
+			"id": "1579965928837",
+			"component": "debug",
+			"tab": "1579965780070",
+			"name": "Debug",
+			"x": 468,
+			"y": 183,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Enabled",
+				"color": "gray"
+			},
+			"options": {
+				"type": "data",
+				"repository": false,
+				"enabled": true
+			},
+			"color": "#967ADC",
+			"notes": ""
+		},
+		{
+			"id": "1579967386536",
+			"component": "function",
+			"tab": "1579965780070",
+			"name": "Function",
+			"x": 345,
+			"y": 607,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": [
+					0
+				]
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"options": {
+				"code": "global.set(\"red\", 255)\nglobal.set(\"green\", 255)\nglobal.set(\"blue\", 1023)\nvar multiplier = global.get(\"multiplier\")\nif (typeof multiplier === \"undefined\" || multiplier >= 100) multiplier = 0;\nelse multiplier += 1;\ninstance.debug(multiplier)\nglobal.set(\"multiplier\", multiplier)",
+				"outputs": 1
+			},
+			"color": "#656D78",
+			"notes": "",
+			"output": 1
+		},
+		{
+			"id": "1579968327606",
+			"component": "pass",
+			"tab": "1579965780070",
+			"name": "Pass",
+			"x": 169,
+			"y": 579,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1579967386536"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "enabled",
+				"color": "gray"
+			},
+			"options": {
+				"values": [
+					true
+				],
+				"passallinputs": false,
+				"inputs": 1,
+				"enabled": true,
+				"debug": true
+			},
+			"color": "#656D7D",
+			"notes": "",
+			"input": 2
+		},
+		{
+			"id": "1579970269465",
+			"component": "cron",
+			"tab": "1579965780070",
+			"name": "Cron",
+			"x": 17,
+			"y": 624,
+			"connections": {
+				"0": [
+					{
+						"index": "1",
+						"id": "1579968327606"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"options": {
+				"jobs": [
+					"30 23 * * * | on",
+					"30 0 * * * | off"
+				],
+				"enabled": true
+			},
+			"color": "#F6BB42",
+			"notes": ""
+		},
+		{
+			"id": "1579970581475",
+			"component": "timer",
+			"tab": "1579965780070",
+			"name": "Timer",
+			"x": 20,
+			"y": 509,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1579968327606"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"options": {
+				"interval": 36000
+			},
+			"color": "#F6BB42",
+			"notes": ""
+		},
+		{
+			"id": "1579972053509",
+			"component": "mqtt",
+			"tab": "1579965780070",
+			"name": " @ 127.0.0.1:1883",
+			"x": 29,
+			"y": 27,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Connected",
+				"color": "green"
+			},
+			"options": {
+				"port": 1883,
+				"host": "127.0.0.1",
+				"clientid": "broker",
+				"id": "@127.0.0.1:1883"
+			},
+			"color": "#888600",
+			"notes": ""
+		},
+		{
+			"id": "1579972204260",
+			"component": "mqttpublish",
+			"tab": "1579965780070",
+			"name": "@127.0.0.1:1883",
+			"x": 714,
+			"y": 400,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Connected",
+				"color": "green"
+			},
+			"options": {
+				"retain": true,
+				"broker": "@127.0.0.1:1883",
+				"debug": true
+			},
+			"color": "#888600",
+			"notes": ""
+		},
+		{
+			"id": "1579972778984",
+			"component": "mqttsubscribe",
+			"tab": "1579965780070",
+			"name": "@127.0.0.1:1883 -> online/{device-id}",
+			"x": 27,
+			"y": 158,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1579973636111"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Connected",
+				"color": "green"
+			},
+			"options": {
+				"topic": "online/#",
+				"broker": "@127.0.0.1:1883"
+			},
+			"color": "#888600",
+			"notes": ""
+		},
+		{
+			"id": "1579973636111",
+			"component": "function",
+			"tab": "1579965780070",
+			"name": "Function",
+			"x": 267,
+			"y": 332,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1579974485455"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"options": {
+				"code": "var devices = global.get(\"online-devices\")\nvar multiplier = global.get(\"multiplier\")\nif (typeof devices === \"undefined\") devices = [];\nif (typeof multiplier === \"undefined\") multiplier = 0;\n\nvar device = data.topic.split(\"/\")[1];\nvar red = global.get(\"red\");\nvar green = global.get(\"green\");\nvar blue = global.get(\"blue\");\n\nif (devices.find(device) == null) devices.push(device)\n\nglobal.set(\"online-devices\", devices)\n\nsend({\"topic\": \"switch/\"+device+\"/setColor\", \"data\": {\"red\":red*multiplier/100-1, \"green\":green*multiplier/100-1, \"blue\":blue*multiplier/100-1 }});",
+				"outputs": 1
+			},
+			"color": "#656D78",
+			"notes": "",
+			"output": 1
+		},
+		{
+			"id": "1579974485455",
+			"component": "modified",
+			"tab": "1579965780070",
+			"name": "Modified",
+			"x": 462,
+			"y": 376,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1579972204260"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Not modified: 1692x",
+				"color": "gray"
+			},
+			"options": {},
+			"color": "#656D78",
+			"notes": ""
+		},
+		{
+			"id": "1580052008478",
+			"component": "function",
+			"tab": "1579965780070",
+			"name": "Function",
+			"x": 218,
+			"y": 976,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"options": {
+				"outputs": 1,
+				"code": "global.set(\"multiplier\", 0)"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"output": 1
+		},
+		{
+			"id": "1580052038112",
+			"component": "trigger",
+			"tab": "1579965780070",
+			"name": "Trigger",
+			"x": 22,
+			"y": 980,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1580052008478"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"options": {},
+			"color": "#F6BB42",
+			"notes": ""
+		},
+		{
+			"id": "1580052709049",
+			"component": "function",
+			"tab": "1579965780070",
+			"name": "Function",
+			"x": 216,
+			"y": 1056,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"options": {
+				"code": "global.set(\"red\", 1023)\nglobal.set(\"green\", 300)\nglobal.set(\"blue\", 0)",
+				"outputs": 0
+			},
+			"color": "#656D78",
+			"notes": "",
+			"output": 1
+		},
+		{
+			"id": "1580052709061",
+			"component": "trigger",
+			"tab": "1579965780070",
+			"name": "Trigger",
+			"x": 20,
+			"y": 1060,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1580052709049"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"options": {},
+			"color": "#F6BB42",
+			"notes": ""
+		},
+		{
+			"id": "1580052881537",
+			"component": "function",
+			"tab": "1579965780070",
+			"name": "Function",
+			"x": 473,
+			"y": 758,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"options": {
+				"code": "global.set(\"red\", 1023)\nglobal.set(\"green\", 128)\nglobal.set(\"blue\", 0)\nvar multiplier = global.get(\"multiplier\")\nif (typeof multiplier === \"undefined\" || multiplier <= 0) multiplier = 0;\nelse multiplier -= 1;\n\nglobal.set(\"multiplier\", multiplier)",
+				"outputs": 1
+			},
+			"color": "#656D78",
+			"notes": "",
+			"output": 1
+		},
+		{
+			"id": "1580052881545",
+			"component": "pass",
+			"tab": "1579965780070",
+			"name": "Pass",
+			"x": 303,
+			"y": 766,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1580052881537"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "disabled",
+				"color": "gray"
+			},
+			"options": {
+				"values": [
+					false
+				],
+				"passallinputs": false,
+				"inputs": 1,
+				"enabled": false,
+				"debug": true
+			},
+			"color": "#656D78",
+			"notes": "",
+			"input": 2
+		},
+		{
+			"id": "1580052881563",
+			"component": "timer",
+			"tab": "1579965780070",
+			"name": "Timer",
+			"x": 21,
+			"y": 711,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1580052881545"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"options": {
+				"interval": 24000
+			},
+			"color": "#F6BB42",
+			"notes": ""
+		},
+		{
+			"id": "1580052896507",
+			"component": "trigger",
+			"tab": "1579965780070",
+			"name": "Trigger",
+			"x": 18,
+			"y": 782,
+			"connections": {
+				"0": [
+					{
+						"index": "1",
+						"id": "1580052881545"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"options": {
+				"data": "on",
+				"datatype": "string"
+			},
+			"color": "#F6BB42",
+			"notes": ""
+		},
+		{
+			"id": "1580141250131",
+			"component": "cron",
+			"tab": "1579965780070",
+			"name": "Cron",
+			"x": 22,
+			"y": 869,
+			"connections": {
+				"0": [
+					{
+						"index": "1",
+						"id": "1580052881545"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"options": {
+				"jobs": [
+					"30 22 * * * | off"
+				],
+				"enabled": true
+			},
+			"color": "#F6BB42",
+			"notes": ""
+		}
+	],
+	"version": 615
+}
